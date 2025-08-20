@@ -1,0 +1,9 @@
+# Activation du module de réécriture
+RewriteEngine On
+
+# Ignore les fichiers et dossiers réels (CSS, JS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Capture TOUTES les URLs (segments multiples avec /)
+RewriteRule ^(.*)$ index.php?uri=$1 [L,QSA]
