@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use App\Controllers\AuthController;
+use App\Controllers\DashboardController;
 use App\Core\Router;
 
 $router = new Router();
@@ -9,9 +12,23 @@ $router->get('/', function () {
     require_once __DIR__ . '/app/Views/layout.php';
 });
 
+$router->get('inscription', function () {
+    $authController = new AuthController();
+    $authController->showRegisterForm();
+});
+
+$router->post('register', fn() => (new AuthController())->register());
+
+$router->get('connexion', fn() => (new AuthController())->showLoginForm());
+
+$router->post('login', fn() => (new AuthController())->login());
+$router->get('logout', fn() => (new AuthController())->logout());
+
+$router->get('dashboard', fn() => (new DashboardController())->index());
+
+
 $router->get('test', function () {
-    echo "<h1>Page de test</h1>";
-    echo "<p>URL propre fonctionnelle !</p>";
+   phpinfo();
 });
 
 $router->dispatch();

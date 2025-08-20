@@ -18,9 +18,9 @@ class Model
         try {
             if (!$pdo) {
                 $host = $_ENV['DB_HOST'];
-                $db   = $_ENV['DB_NAME'] ?? '';
-                $user = $_ENV['DB_USER'];
-                $pass = $_ENV['DB_PASSWORD'];
+                $db   = $_ENV['MARIADB_DATABASE'] ?? '';
+                $user = $_ENV['MARIADB_USER'];
+                $pass = $_ENV['MARIADB_PASSWORD'];
                 $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
             }
         } catch (\Throwable $th) {

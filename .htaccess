@@ -1,9 +1,16 @@
 # Activation du module de réécriture
 RewriteEngine On
 
-# Ignore les fichiers et dossiers réels (CSS, JS, images, etc.)
+# Redirection interne de /assets vers /app/assets (sans changement d'URL)
+RewriteRule ^assets/(.*)$ app/assets/$1 [L]
+
+# Exclure app/assets des autres règles de réécriture
+RewriteCond %{REQUEST_URI} ^/app/assets/.*$ [NC]
+RewriteRule ^.*$ - [L]
+
+# Ignore les fichiers et dossiers réels
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Capture TOUTES les URLs (segments multiples avec /)
+# Routage vers index.php
 RewriteRule ^(.*)$ index.php?uri=$1 [L,QSA]
